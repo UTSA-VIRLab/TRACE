@@ -10,9 +10,9 @@ BASE_MODEL="lmsys/vicuna-7b-v1.5"
 PRETRAIN_ADAPTER="/raid/den365/RaDialog_v2/checkpoints/radialog-v2"
 DATA_PATH="/raid/den365/RaDialog_v2/data/temporal_grounding/train.json"
 IMAGE_FOLDER="/raid/den365/physionet.org/files/mimic-cxr-jpg/2.1.0"
-OUTPUT_DIR="/raid/den365/RaDialog_v2/LLAVA/checkpoints/temporal_grounding_v1"
+OUTPUT_DIR="/raid/den365/RaDialog_v2/trace_model/checkpoints/temporal_grounding_v1"
 
-cd /raid/den365/RaDialog_v2/LLAVA
+cd /raid/den365/RaDialog_v2/trace_model
 
 deepspeed --num_gpus=6 --master_port=29501 llava/train/train.py \
     --deepspeed scripts/zero2.json \

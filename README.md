@@ -53,11 +53,11 @@ Download pretrained checkpoints from [Hugging Face](https://huggingface.co/) (co
 
 Place checkpoints in:
 - `checkpoints/radialog-v2/` - Pretrained adapter
-- `LLAVA/checkpoints/temporal_grounding_v1/` - TRACE model
+- `trace_model/checkpoints/temporal_grounding_v1/` - TRACE model
 
 ## Training
 ```bash
-cd LLAVA
+cd trace_model
 bash scripts/train_temporal_grounding.sh
 ```
 
@@ -96,7 +96,7 @@ python demo.py
 ## Project Structure
 ```
 TRACE/
-├── LLAVA/                      # Core model code
+├── trace_model/                      # Core model code
 │   ├── llava/model/           # Temporal grounding architecture
 │   ├── llava/train/           # Training scripts
 │   └── scripts/               # Shell scripts
