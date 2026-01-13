@@ -1,0 +1,23 @@
+{
+  "bleu4": 0.050477066358882904,
+  "change_accuracy": 0.43555181128896375,
+  "change_matrix": {
+    "worsening": {
+      "worsening": 0,
+      "improvement": 0,
+      "stable": 7856
+    },
+    "improvement": {
+      "worsening": 0,
+      "improvement": 0,
+      "stable": 4874
+    },
+    "stable": {
+      "worsening": 0,
+      "improvement": 0,
+      "stable": 9823
+    }
+  },
+  "iou_mean": 0.6372777363034824,
+  "iou_above_5": 0.8372278632554427
+}

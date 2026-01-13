@@ -1,0 +1,29 @@
+/.idea
+/chexbert/src/checkpoint/chexbert.pth
+/findings_classifier/predictions/structured_preds_chexpert_log_weighting_test_macro.json
+/findings_classifier/predictions/structured_preds_chexpert_log_weighting_val_macro.json
+/data/mimic_cxr_instruct_llava_v2.json
+# Large checkpoints (download separately)
+checkpoints/
+LLAVA/checkpoints/
+
+# Large data files (download separately)
+data/temporal_grounding/train.json
+data/temporal_grounding/test.json
+data/temporal_grounding/val.json
+data/mimic_cxr_instruct_llava_v2_valid.json
+data/temporal_grounding/train_no_grounding.json
+data/temporal_grounding/train_single_image.json
+data/temporal_grounding/test_single_image.json
+data/temporal_grounding/dicom_to_path.json
+data/temporal_grounding/full_test_results_final.json
+
+# Generated outputs
+chexbert/outputs/
+findings_classifier/predictions/
+mimic-cxr/reports_processed/
+__pycache__/
+*.pyc
+/data/data_files/
+findings_classifier/checkpoints/
+/data/data_files/finding_chexbert_labels.csv

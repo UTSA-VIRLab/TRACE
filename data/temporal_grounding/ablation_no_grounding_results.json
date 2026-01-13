@@ -1,0 +1,21 @@
+{
+  "bleu4": 0.24019525483024462,
+  "change_accuracy": 0.43555181128896375,
+  "change_matrix": {
+    "worsening": {
+      "worsening": 0,
+      "improvement": 0,
+      "stable": 7856
+    },
+    "improvement": {
+      "worsening": 0,
+      "improvement": 0,
+      "stable": 4874
+    },
+    "stable": {
+      "worsening": 0,
+      "improvement": 0,
+      "stable": 9823
+    }
+  }
+}
