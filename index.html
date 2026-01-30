@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>TRACE: Temporal Radiology with Anatomical Change Explanation</title>
+    <meta name="description" content="TRACE is the first model for grounded temporal change detection in chest X-rays.">
+    <meta name="keywords" content="medical imaging, chest X-ray, temporal change detection, deep learning, radiology">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="TRACE: Temporal Radiology with Anatomical Change Explanation">
+    <meta property="og:description" content="TRACE is the first model for grounded temporal change detection in chest X-rays.">
+    <meta property="og:image" content="model_architecture.png">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0c4a6e;
+            --primary-hover: #075985;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --max-width: 950px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-color);
+            background: var(--bg-color);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        
+        .venue {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        
+        .paper-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text-color);
+        }
+        
+        /* Authors */
+        .authors {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 24px;
+            margin-bottom: 16px;
+        }
+        
+        .author {
+            font-size: 1.1rem;
+        }
+        
+        .author a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .author a:hover {
+            text-decoration: underline;
+        }
+        
+        .author sup {
+            color: var(--text-light);
+            font-size: 0.75rem;
+        }
+        
+        .affiliations {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        
+        .equal-contrib {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        
+        /* Links/Buttons */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+        
+        /* Teaser */
+        .teaser {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .teaser img,
+        .teaser video {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .teaser-caption {
+            margin-top: 16px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 48px 0;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-color);
+        }
+        
+        /* Abstract */
+        .abstract {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            text-align: justify;
+        }
+        
+        /* Figures */
+        .figure {
+            margin: 32px 0;
+            text-align: center;
+        }
+        
+        .figure img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        
+        .figure-caption {
+            margin-top: 12px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Tables */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.95rem;
+        }
+        
+        .results-table th,
+        .results-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .results-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+        
+        .results-table tr:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .highlight-row {
+            background: #ecfdf5;
+            font-weight: 500;
+        }
+        
+        .highlight-row:hover {
+            background: #d1fae5 !important;
+        }
+        
+        /* Video */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin: 24px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* BibTeX */
+        .bibtex-container {
+            position: relative;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+        
+        .bibtex-container pre {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            color: var(--text-color);
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 8px 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-hover);
+        }
+        
+        .copy-btn.copied {
+            background: #10b981;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .paper-title {
+                font-size: 1.75rem;
+            }
+            
+            .authors {
+                gap: 4px 16px;
+            }
+            
+            .author {
+                font-size: 1rem;
+            }
+            
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .results-table {
+                font-size: 0.85rem;
+            }
+            
+            .results-table th,
+            .results-table td {
+                padding: 8px 10px;
+            }
+        }
+        
+        /* Image Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+        
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        
+        /* Checkmark */
+        .check {
+            color: #10b981;
+        }
+        .cross {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back to Lab Website -->
+        <a href="https://utsa-virlab.github.io/research/" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to VIRLab Research
+        </a>
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <!-- TODO: Update venue/conference when published -->
+            <span class="venue">Medical Imaging 2025</span>
+            
+            <h1 class="paper-title">TRACE: Temporal Radiology with Anatomical Change Explanation</h1>
+            
+            <!-- TODO: Update authors -->
+            <div class="authors">
+                <span class="author"><a href="#">First Author</a><sup>1</sup>,</span>
+                <span class="author"><a href="#">Second Author</a><sup>1</sup>,</span>
+                <span class="author"><a href="https://kevindesai.info">Kevin Desai</a><sup>1</sup></span>
+            </div>
+            
+            <div class="affiliations">
+                <sup>1</sup>University of Texas at San Antonio
+            </div>
+            
+            <!-- Links -->
+            <div class="links">
+                <a href="#" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-file-pdf"></i> Paper
+                </a>
+                <a href="#" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-file-alt"></i> arXiv
+                </a>
+                <a href="https://github.com/UTSA-VIRLab/TRACE" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-github"></i> Code
+                </a>
+                <a href="#" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-database"></i> Model
+                </a>
+            </div>
+        </section>
+        
+        <!-- Teaser - Architecture -->
+        <section class="teaser">
+            <img src="model_architecture.png" alt="TRACE Architecture" onclick="openModal(this)" style="cursor: pointer;">
+            <p class="teaser-caption">
+                TRACE architecture for grounded temporal change detection. Given a prior and current chest X-ray study, 
+                TRACE generates natural language descriptions of interval changes while localizing each finding with bounding box coordinates.
+            </p>
+        </section>
+        
+        <!-- Abstract -->
+        <section class="section">
+            <h2 class="section-title">Abstract</h2>
+            <p class="abstract">
+                TRACE is the first model for <strong>grounded temporal change detection</strong> in chest X-rays. 
+                Given a prior and current study, TRACE generates natural language descriptions of interval changes 
+                (worsened, improved, stable) while localizing each finding with bounding box coordinates. 
+                Our approach combines vision-language models with temporal reasoning to provide interpretable 
+                radiology reports that track disease progression over time.
+                <!-- TODO: Replace with your full abstract -->
+            </p>
+        </section>
+        
+        <!-- Key Results -->
+        <section class="section">
+            <h2 class="section-title">Key Results</h2>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Change Detection Accuracy</td>
+                        <td><strong>48.0%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Grounding IoU > 0.5</td>
+                        <td><strong>90.2%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Mean IoU</td>
+                        <td><strong>0.772</strong></td>
+                    </tr>
+                    <tr>
+                        <td>BLEU-4</td>
+                        <td><strong>0.260</strong></td>
+                    </tr>
+                    <tr>
+                        <td>RadGraph F1</td>
+                        <td><strong>0.406</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3 style="margin-top: 32px; margin-bottom: 16px;">Comparison with Prior Methods</h3>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Temporal Acc.</th>
+                        <th>Grounding IoU</th>
+                        <th>Report Gen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CheXRelNet</td>
+                        <td>46.8%</td>
+                        <td>—</td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>CheXRelFormer</td>
+                        <td>49.3%</td>
+                        <td>—</td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td><strong>TRACE (Ours)</strong></td>
+                        <td><strong>48.0%</strong></td>
+                        <td><strong>90.2%</strong></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Qualitative Results -->
+        <section class="section">
+            <h2 class="section-title">Qualitative Results</h2>
+            <div class="figure">
+                <img src="qualitative_results.png" alt="Qualitative Results" onclick="openModal(this)" style="cursor: pointer;">
+                <p class="figure-caption">
+                    Qualitative results showing TRACE predictions on test cases. The model correctly identifies 
+                    temporal changes and localizes findings with accurate bounding boxes.
+                </p>
+            </div>
+        </section>
+        
+        <!-- BibTeX -->
+        <section class="section">
+            <h2 class="section-title">BibTeX</h2>
+            <div class="bibtex-container">
+                <button class="copy-btn" onclick="copyBibtex()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <!-- TODO: Update with actual BibTeX when published -->
+                <pre id="bibtex">@inproceedings{trace2025,
+  title={TRACE: Temporal Radiology with Anatomical Change Explanation},
+  author={Author, First and Author, Second and Desai, Kevin},
+  booktitle={Conference Name},
+  year={2025}
+}</pre>
+            </div>
+        </section>
+        
+        <!-- Acknowledgments -->
+        <section class="section">
+            <h2 class="section-title">Acknowledgments</h2>
+            <p>
+                This work builds upon <a href="https://github.com/ChantalMP/RaDialog" target="_blank">RaDialog</a> 
+                and <a href="https://github.com/haotian-liu/LLaVA" target="_blank">LLaVA</a>.
+            </p>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <a href="https://utsa-virlab.github.io/">UTSA VIRLab</a> · 
+                <a href="https://utsa.edu/">University of Texas at San Antonio</a>
+            </p>
+            <p style="margin-top: 8px;">
+                Template adapted from <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" src="" alt="">
+    </div>
+    
+    <script>
+        // Copy BibTeX
+        function copyBibtex() {
+            const bibtex = document.getElementById('bibtex').textContent;
+            navigator.clipboard.writeText(bibtex).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+        
+        // Image Modal
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
