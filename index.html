@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>TRACE: Temporal Radiology with Anatomical Change Explanation for Grounded X-ray Report Generation</title>
+
+    <title>TRACE: Temporal Radiology with Anatomical Change Explanation for Grounded X-Ray Report Generation</title>
     <meta name="description" content="TRACE is the first model that jointly performs temporal comparison, change classification, and spatial localization for chest X-rays.">
     <meta name="keywords" content="temporal reasoning, visual grounding, radiology report generation, chest X-ray, vision-language models, medical imaging">
-    
+    <meta name="author" content="OFM Riaz Rahman Aranya, Kevin Desai">
+    <link rel="canonical" href="https://utsa-virlab.github.io/TRACE/">
+
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="TRACE: Temporal Radiology with Anatomical Change Explanation">
-    <meta property="og:description" content="The first model for grounded temporal change detection in chest X-rays with over 90% grounding accuracy.">
-    <meta property="og:image" content="figures/intro_figure-2.png">
+    <meta property="og:description" content="The first model for grounded temporal change detection in chest X-rays, with over 90% grounding accuracy.">
+    <meta property="og:image" content="https://utsa-virlab.github.io/TRACE/figures/intro_figure-2.png">
+    <meta property="og:url" content="https://utsa-virlab.github.io/TRACE/">
     <meta property="og:type" content="website">
-    
+    <meta name="twitter:card" content="summary_large_image">
+
     <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
             --primary-color: #0c4a6e;
@@ -34,13 +40,13 @@
             --warning-color: #f59e0b;
             --max-width: 950px;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--text-color);
@@ -48,19 +54,23 @@
             line-height: 1.7;
             font-size: 16px;
         }
-        
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
         .container {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 24px;
         }
-        
+
         /* Header */
         .hero {
             text-align: center;
             padding: 60px 0 40px;
         }
-        
+
         .venue {
             display: inline-block;
             background: var(--primary-color);
@@ -71,7 +81,7 @@
             font-weight: 500;
             margin-bottom: 24px;
         }
-        
+
         .paper-title {
             font-size: 2.1rem;
             font-weight: 700;
@@ -79,7 +89,7 @@
             margin-bottom: 24px;
             color: var(--text-color);
         }
-        
+
         /* Authors */
         .authors {
             display: flex;
@@ -88,26 +98,26 @@
             gap: 8px 32px;
             margin-bottom: 16px;
         }
-        
+
         .author {
             font-size: 1.1rem;
         }
-        
+
         .author a {
             color: var(--primary-color);
             text-decoration: none;
         }
-        
+
         .author a:hover {
             text-decoration: underline;
         }
-        
+
         .affiliations {
             color: var(--text-light);
             font-size: 0.95rem;
             margin-bottom: 8px;
         }
-        
+
         /* Links/Buttons */
         .links {
             display: flex;
@@ -116,7 +126,7 @@
             gap: 12px;
             margin-top: 32px;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -128,26 +138,26 @@
             text-decoration: none;
             transition: all 0.2s;
         }
-        
+
         .btn-primary {
             background: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
             background: var(--primary-hover);
         }
-        
+
         .btn-secondary {
             background: var(--bg-secondary);
             color: var(--text-color);
             border: 1px solid var(--border-color);
         }
-        
+
         .btn-secondary:hover {
             background: var(--border-color);
         }
-        
+
         /* Highlights */
         .highlights {
             display: grid;
@@ -155,39 +165,40 @@
             gap: 16px;
             margin: 32px 0;
         }
-        
+
         .highlight-card {
             background: var(--bg-secondary);
             padding: 20px;
             border-radius: 12px;
             text-align: center;
         }
-        
+
         .highlight-value {
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--primary-color);
         }
-        
+
         .highlight-label {
             color: var(--text-light);
             font-size: 0.85rem;
             margin-top: 4px;
         }
-        
+
         /* Teaser */
         .teaser {
             margin: 40px 0;
             text-align: center;
         }
-        
+
         .teaser img,
         .teaser video {
             max-width: 100%;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            cursor: zoom-in;
         }
-        
+
         .teaser-caption {
             margin-top: 16px;
             color: var(--text-light);
@@ -197,27 +208,27 @@
             margin-right: auto;
             text-align: left;
         }
-        
+
         /* Sections */
         .section {
             padding: 48px 0;
             border-top: 1px solid var(--border-color);
         }
-        
+
         .section-title {
             font-size: 1.75rem;
             font-weight: 600;
             margin-bottom: 24px;
             color: var(--text-color);
         }
-        
+
         /* Abstract */
         .abstract {
             font-size: 1.05rem;
             color: var(--text-color);
             text-align: justify;
         }
-        
+
         /* Key Finding Box */
         .key-finding {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
@@ -226,18 +237,18 @@
             padding: 20px 24px;
             margin: 24px 0;
         }
-        
+
         .key-finding h4 {
             color: #92400e;
             margin-bottom: 8px;
             font-size: 1rem;
         }
-        
+
         .key-finding p {
             color: #78350f;
             font-size: 0.95rem;
         }
-        
+
         /* Contributions */
         .contributions {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -245,99 +256,133 @@
             padding: 24px;
             margin: 24px 0;
         }
-        
+
         .contributions h3 {
             font-size: 1.1rem;
             margin-bottom: 16px;
             color: var(--primary-color);
         }
-        
+
         .contributions ul {
             list-style: none;
             padding: 0;
         }
-        
+
         .contributions li {
             padding: 8px 0;
             padding-left: 28px;
             position: relative;
         }
-        
+
         .contributions li::before {
-            content: "✓";
+            content: "\2713";
             position: absolute;
             left: 0;
             color: var(--success-color);
             font-weight: bold;
         }
-        
+
         /* Figures */
         .figure {
             margin: 32px 0;
             text-align: center;
         }
-        
+
         .figure img {
             max-width: 100%;
             border-radius: 8px;
-            cursor: pointer;
+            cursor: zoom-in;
             transition: transform 0.2s;
         }
-        
+
         .figure img:hover {
             transform: scale(1.01);
         }
-        
+
         .figure-caption {
             margin-top: 12px;
             color: var(--text-light);
             font-size: 0.9rem;
             text-align: left;
         }
-        
+
         /* Tables */
         .table-wrapper {
             overflow-x: auto;
             margin: 24px 0;
+            -webkit-overflow-scrolling: touch;
         }
-        
+
         .results-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
         }
-        
+
         .results-table th,
         .results-table td {
             padding: 12px 14px;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         .results-table th {
             background: var(--bg-secondary);
             font-weight: 600;
             white-space: nowrap;
         }
-        
-        .results-table tr:hover {
+
+        /* Positional alignment only works where every row has the same number
+           of cells. The metrics table uses rowspan, so it is excluded and
+           aligned by column below. */
+        .results-table:not(.metrics-table) td + td,
+        .results-table:not(.metrics-table) th + th {
+            text-align: center;
+        }
+
+        /* Metrics table: label columns left, numbers right so decimals line up. */
+        .metrics-table th,
+        .metrics-table td {
+            text-align: left;
+        }
+
+        .metrics-table th:last-child,
+        .metrics-table td:last-child {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .results-table tbody tr:hover {
             background: var(--bg-secondary);
         }
-        
-        .highlight-row {
-            background: #ecfdf5 !important;
+
+        /* Highlight the "ours" row. Applied to the cells, not the row, so it
+           beats the row hover rule without needing !important. */
+        .highlight-row td {
+            background: #ecfdf5;
             font-weight: 500;
         }
-        
-        .highlight-row:hover {
-            background: #d1fae5 !important;
+
+        .highlight-row:hover td {
+            background: #d1fae5;
         }
-        
+
+        .total-row td {
+            border-top: 2px solid var(--border-color);
+        }
+
         .best {
             font-weight: 700;
             color: var(--primary-color);
         }
-        
+
+        .table-note {
+            margin-top: -12px;
+            margin-bottom: 24px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
         /* Method cards */
         .method-grid {
             display: grid;
@@ -345,25 +390,25 @@
             gap: 24px;
             margin: 24px 0;
         }
-        
+
         .method-card {
             background: var(--bg-secondary);
             padding: 24px;
             border-radius: 12px;
             border-left: 4px solid var(--primary-color);
         }
-        
+
         .method-card h4 {
             color: var(--primary-color);
             margin-bottom: 12px;
             font-size: 1rem;
         }
-        
+
         .method-card p {
             color: var(--text-light);
             font-size: 0.9rem;
         }
-        
+
         /* Subsection */
         .subsection-title {
             font-size: 1.25rem;
@@ -371,7 +416,7 @@
             margin: 32px 0 16px;
             color: var(--text-color);
         }
-        
+
         /* BibTeX */
         .bibtex-container {
             position: relative;
@@ -380,7 +425,7 @@
             padding: 20px;
             margin-top: 16px;
         }
-        
+
         .bibtex-container pre {
             font-family: 'Monaco', 'Menlo', monospace;
             font-size: 12px;
@@ -390,7 +435,7 @@
             margin: 0;
             color: var(--text-color);
         }
-        
+
         .copy-btn {
             position: absolute;
             top: 12px;
@@ -404,15 +449,15 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        
+
         .copy-btn:hover {
             background: var(--primary-hover);
         }
-        
+
         .copy-btn.copied {
             background: var(--success-color);
         }
-        
+
         /* Footer */
         .footer {
             text-align: center;
@@ -421,16 +466,16 @@
             font-size: 0.85rem;
             border-top: 1px solid var(--border-color);
         }
-        
+
         .footer a {
             color: var(--primary-color);
             text-decoration: none;
         }
-        
+
         .footer a:hover {
             text-decoration: underline;
         }
-        
+
         /* Back link */
         .back-link {
             display: inline-flex;
@@ -441,63 +486,64 @@
             font-size: 0.9rem;
             margin-bottom: 20px;
         }
-        
+
         .back-link:hover {
             color: var(--primary-color);
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .paper-title {
                 font-size: 1.5rem;
             }
-            
+
             .authors {
                 gap: 4px 16px;
             }
-            
+
             .author {
                 font-size: 1rem;
             }
-            
+
             .links {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .btn {
                 width: 100%;
                 max-width: 280px;
                 justify-content: center;
             }
-            
+
             .highlight-value {
                 font-size: 1.8rem;
             }
-            
+
             .results-table {
                 font-size: 0.8rem;
             }
-            
+
             .results-table th,
             .results-table td {
                 padding: 8px 10px;
             }
         }
-        
+
         /* Image Modal */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: rgba(0, 0, 0, 0.9);
-            cursor: pointer;
+            cursor: zoom-out;
         }
-        
+
+        .modal.open {
+            display: block;
+        }
+
         .modal img {
             max-width: 90%;
             max-height: 90%;
@@ -507,20 +553,24 @@
             transform: translate(-50%, -50%);
             border-radius: 8px;
         }
-        
+
         .modal-close {
             position: absolute;
             top: 20px;
             right: 30px;
             color: white;
             font-size: 40px;
+            line-height: 1;
+            background: none;
+            border: none;
             cursor: pointer;
+            z-index: 1001;
         }
-        
+
         /* Checkmark */
-        .check { color: var(--success-color); }
-        .cross { color: #ef4444; }
-        
+        .check { color: var(--success-color); font-weight: 700; }
+        .cross { color: #ef4444; font-weight: 700; }
+
         /* Example output */
         .example-output {
             background: #1e293b;
@@ -532,9 +582,14 @@
             margin: 16px 0;
             overflow-x: auto;
         }
-        
+
         .example-output .box {
             color: #fbbf24;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
+            .figure img:hover { transform: none; }
         }
     </style>
 </head>
@@ -542,48 +597,47 @@
     <div class="container">
         <!-- Back to Lab Website -->
         <a href="https://utsa-virlab.github.io/research/" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to VIRLab Research
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to VIRLab Research
         </a>
-        
+
         <!-- Hero Section -->
         <section class="hero">
-            <!-- TODO: Update venue when published -->
-            <span class="venue">Under Review</span>
-            
-            <h1 class="paper-title">TRACE: Temporal Radiology with Anatomical Change Explanation for Grounded X-ray Report Generation</h1>
-            
+            <span class="venue">ICPR 2026</span>
+
+            <h1 class="paper-title">TRACE: Temporal Radiology with Anatomical Change Explanation for Grounded X-Ray Report Generation</h1>
+
             <div class="authors">
                 <span class="author">
-                    <a href="https://orcid.org/0000-0002-8195-2710" target="_blank">OFM Riaz Rahman Aranya</a>
+                    <a href="https://orcid.org/0000-0002-8195-2710" target="_blank" rel="noopener">OFM Riaz Rahman Aranya</a>
                 </span>
                 <span class="author">
-                    <a href="https://kevindesai.info" target="_blank">Kevin Desai</a>
+                    <a href="https://kevindesai.info" target="_blank" rel="noopener">Kevin Desai</a>
                 </span>
             </div>
-            
+
             <div class="affiliations">
-                University of Texas at San Antonio
+                The University of Texas at San Antonio
             </div>
-            
+
             <!-- Links -->
             <div class="links">
-                <a href="#" class="btn btn-primary" target="_blank">
-                    <i class="fas fa-file-pdf"></i> Paper
+                <a href="https://link.springer.com/chapter/10.1007/978-3-032-31933-3_7" class="btn btn-primary" target="_blank" rel="noopener">
+                    <i class="fas fa-book-open" aria-hidden="true"></i> Paper (Springer)
                 </a>
-                <a href="#" class="btn btn-secondary" target="_blank">
-                    <i class="fas fa-file-alt"></i> arXiv
+                <a href="https://arxiv.org/abs/2602.02963" class="btn btn-secondary" target="_blank" rel="noopener">
+                    <i class="fas fa-file-lines" aria-hidden="true"></i> arXiv
                 </a>
-                <a href="https://github.com/UTSA-VIRLab/TRACE" class="btn btn-secondary" target="_blank">
-                    <i class="fab fa-github"></i> Code
+                <a href="https://github.com/UTSA-VIRLab/TRACE" class="btn btn-secondary" target="_blank" rel="noopener">
+                    <i class="fab fa-github" aria-hidden="true"></i> Code
                 </a>
             </div>
         </section>
-        
+
         <!-- Key Results Highlights -->
         <div class="highlights">
             <div class="highlight-card">
                 <div class="highlight-value">90.2%</div>
-                <div class="highlight-label">Grounding Accuracy (IoU>0.5)</div>
+                <div class="highlight-label">Grounding Accuracy (IoU &gt; 0.5)</div>
             </div>
             <div class="highlight-card">
                 <div class="highlight-value">48.0%</div>
@@ -598,109 +652,117 @@
                 <div class="highlight-label">BLEU-4 Score</div>
             </div>
         </div>
-        
+
         <!-- Teaser - Intro Comparison Figure -->
         <section class="teaser">
-            <img src="figures/intro_figure-2.png" alt="TRACE Comparison" onclick="openModal(this)">
+            <img src="figures/intro_figure-2.png" alt="Comparison of four chest X-ray report generation approaches, showing that only TRACE combines temporal change classification with spatial grounding" onclick="openModal(this)">
             <p class="teaser-caption">
-                <strong>Figure:</strong> Comparison of chest X-ray report generation approaches. 
-                <strong>Single-Image Report Generation</strong> generates reports without temporal context or spatial grounding. 
-                <strong>Temporal Comparison</strong> detects disease progression but outputs only classification labels. 
-                <strong>Grounded Report Generation</strong> produces spatially grounded reports but lacks temporal reasoning. 
-                <strong>TRACE (Ours)</strong> is the first to combine explicit temporal change classification with spatial grounding, 
+                <strong>Figure:</strong> Comparison of chest X-ray report generation approaches.
+                <strong>Single-Image Report Generation</strong> generates reports without temporal context or spatial grounding.
+                <strong>Temporal Comparison</strong> detects disease progression but outputs only classification labels.
+                <strong>Grounded Report Generation</strong> produces spatially grounded reports but lacks temporal reasoning.
+                <strong>TRACE (Ours)</strong> is the first to combine explicit temporal change classification with spatial grounding,
                 describing <em>what</em> changed, <em>where</em>, and <em>how</em>.
             </p>
         </section>
-        
+
         <!-- Abstract -->
         <section class="section">
             <h2 class="section-title">Abstract</h2>
             <p class="abstract">
-                Temporal comparison of chest X-rays is fundamental to clinical radiology, enabling detection of disease progression, 
-                treatment response, and new findings. While vision-language models have advanced single-image report generation and 
-                visual grounding, no existing method combines these capabilities for temporal change detection. We introduce 
-                <strong>Temporal Radiology with Anatomical Change Explanation (TRACE)</strong>, the first model that jointly performs 
-                temporal comparison, change classification, and spatial localization. Given a prior and current chest X-ray, TRACE 
-                generates natural language descriptions of interval changes (worsened, improved, stable) while grounding each finding 
-                with bounding box coordinates. TRACE demonstrates effective spatial localization with <strong>over 90% grounding accuracy</strong>, 
-                establishing a foundation for this challenging new task.
+                Temporal comparison of chest X-rays is fundamental to clinical radiology, enabling detection of disease progression,
+                treatment response, and new findings. While vision-language models have advanced single-image report generation and
+                visual grounding, no existing method combines these capabilities for temporal change detection. We introduce
+                <strong>Temporal Radiology with Anatomical Change Explanation (TRACE)</strong>, the first model that jointly performs
+                temporal comparison, change classification, and spatial localization. Given a prior and current chest X-ray, TRACE
+                generates natural language descriptions of interval changes (worsened, improved, stable) while grounding each finding
+                with bounding box coordinates. TRACE demonstrates effective spatial localization with <strong>over 90% grounding accuracy</strong>,
+                establishing a foundation for this challenging new task. Our ablation study uncovers an emergent capability: change
+                detection arises only when temporal comparison and spatial grounding are jointly learned, as neither alone enables
+                meaningful change detection. This finding suggests that grounding provides a spatial attention mechanism essential
+                for temporal reasoning.
             </p>
-            
+
             <!-- Key Finding -->
             <div class="key-finding">
-                <h4><i class="fas fa-lightbulb"></i> Key Discovery</h4>
+                <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> What the failure looks like</h4>
                 <p>
-                    Our ablation study uncovers an <strong>emergent capability</strong>: change detection arises only when temporal 
-                    comparison and spatial grounding are jointly learned. Models with access to both images but without grounding 
-                    supervision fail entirely, defaulting to predicting "stable" for all samples. This suggests that grounding 
-                    provides a spatial attention mechanism essential for temporal reasoning.
+                    The emergent capability is easiest to see in how the ablated model breaks. Give it both images but remove
+                    grounding supervision and it does not degrade gracefully: it collapses to predicting <strong>"stable" for every
+                    single sample</strong>, scoring 0% recall on both worsening and improvement. The 43.8% accuracy it reports is
+                    just the majority class rate, not evidence of any learned comparison.
                 </p>
             </div>
-            
+
             <!-- Example Output -->
             <p style="margin-top: 24px;"><strong>Example TRACE Output:</strong></p>
             <div class="example-output">
                 "Interval worsening of pneumothorax <span class="box">&lt;box&gt;0.19,0.11,0.52,0.63&lt;/box&gt;</span> in right lung."
             </div>
-            
+
             <!-- Contributions -->
             <div class="contributions">
                 <h3>Key Contributions</h3>
                 <ul>
                     <li>We introduce <strong>grounded temporal change detection</strong>, a new task combining temporal comparison, change classification, and spatial localization in a unified framework.</li>
                     <li>We discover an <strong>emergent capability</strong>: change detection only arises when both temporal comparison and spatial grounding are combined. Without grounding supervision, models fail to detect changes even with access to both images.</li>
-                    <li>We construct a <strong>large-scale dataset</strong> with grounded temporal annotations from MIMIC-CXR and Chest ImaGenome (79,202 training, 22,553 test samples).</li>
+                    <li>We construct a <strong>large-scale dataset</strong> with grounded temporal annotations from MIMIC-CXR and Chest ImaGenome (79,202 training, 11,464 validation, 22,553 test samples).</li>
                 </ul>
             </div>
         </section>
-        
+
         <!-- Method -->
         <section class="section">
             <h2 class="section-title">Method</h2>
-            
+
             <div class="figure">
-                <img src="figures/model_architecture.png" alt="TRACE Architecture" onclick="openModal(this)">
+                <img src="figures/model_architecture.png" alt="TRACE architecture diagram showing prior and current X-rays entering a frozen BioViL-T encoder, an MLP projector, and a Vicuna-7B decoder" onclick="openModal(this)">
                 <p class="figure-caption">
-                    <strong>Figure:</strong> TRACE architecture for grounded temporal change detection. Given a prior and current chest X-ray, 
+                    <strong>Figure:</strong> TRACE architecture for grounded temporal change detection. Given a prior and current chest X-ray,
                     the model generates natural language descriptions of interval changes while localizing each finding with bounding box coordinates.
                 </p>
             </div>
-            
+
             <div class="method-grid">
                 <div class="method-card">
-                    <h4><i class="fas fa-images"></i> Temporal Input</h4>
+                    <h4><i class="fas fa-images" aria-hidden="true"></i> Temporal Input</h4>
                     <p>Takes both prior and current chest X-ray images to enable comparison of disease progression over time.</p>
                 </div>
                 <div class="method-card">
-                    <h4><i class="fas fa-crosshairs"></i> Spatial Grounding</h4>
+                    <h4><i class="fas fa-crosshairs" aria-hidden="true"></i> Spatial Grounding</h4>
                     <p>Localizes each finding with bounding box coordinates, enabling precise identification of where changes occur.</p>
                 </div>
                 <div class="method-card">
-                    <h4><i class="fas fa-exchange-alt"></i> Change Classification</h4>
+                    <h4><i class="fas fa-exchange-alt" aria-hidden="true"></i> Change Classification</h4>
                     <p>Classifies findings as worsened, improved, or stable to track disease progression and treatment response.</p>
                 </div>
                 <div class="method-card">
-                    <h4><i class="fas fa-file-medical-alt"></i> Report Generation</h4>
+                    <h4><i class="fas fa-file-medical-alt" aria-hidden="true"></i> Report Generation</h4>
                     <p>Generates natural language descriptions combining temporal changes with spatial localization.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Results -->
         <section class="section">
             <h2 class="section-title">Results</h2>
-            
+
             <!-- Main Results -->
             <h3 class="subsection-title">Main Results</h3>
             <p>TRACE performance on the test set (22,553 samples):</p>
-            
+
             <div class="table-wrapper">
-                <table class="results-table">
+                <table class="results-table metrics-table">
+                    <colgroup>
+                        <col style="width: 32%">
+                        <col style="width: 44%">
+                        <col style="width: 24%">
+                    </colgroup>
                     <thead>
                         <tr>
-                            <th>Category</th>
-                            <th>Metric</th>
-                            <th>Value</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Metric</th>
+                            <th scope="col">Value</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -732,7 +794,7 @@
                             <td>0.772</td>
                         </tr>
                         <tr>
-                            <td>IoU > 0.5</td>
+                            <td>IoU &gt; 0.5</td>
                             <td class="best">90.2%</td>
                         </tr>
                         <tr>
@@ -743,57 +805,57 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Comparison with Prior Methods -->
             <h3 class="subsection-title">Comparison with Prior Methods</h3>
             <div class="table-wrapper">
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th>Method</th>
-                            <th>Temporal Acc.</th>
-                            <th>Grounding</th>
-                            <th>Report Gen</th>
+                            <th scope="col">Method</th>
+                            <th scope="col">Temporal Acc.</th>
+                            <th scope="col">Grounding</th>
+                            <th scope="col">Report Gen</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>CheXRelNet</td>
                             <td>46.8%</td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross" aria-label="no">&#10007;</span></td>
+                            <td><span class="cross" aria-label="no">&#10007;</span></td>
                         </tr>
                         <tr>
                             <td>CheXRelFormer</td>
                             <td>49.3%</td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross" aria-label="no">&#10007;</span></td>
+                            <td><span class="cross" aria-label="no">&#10007;</span></td>
                         </tr>
                         <tr class="highlight-row">
                             <td><strong>TRACE (Ours)</strong></td>
                             <td><strong>48.0%</strong></td>
-                            <td><span class="check">✓</span> (90.2%)</td>
-                            <td><span class="check">✓</span></td>
+                            <td><span class="check" aria-label="yes">&#10003;</span> (90.2%)</td>
+                            <td><span class="check" aria-label="yes">&#10003;</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 12px; color: var(--text-light); font-size: 0.9rem;">
-                TRACE achieves comparable temporal accuracy while providing two additional capabilities: 
+            <p class="table-note">
+                TRACE achieves comparable temporal accuracy while providing two additional capabilities:
                 spatial grounding and full natural language report generation.
             </p>
-            
+
             <!-- Per-Class Analysis -->
             <h3 class="subsection-title">Per-Class Change Detection</h3>
             <div class="table-wrapper">
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th>Class</th>
-                            <th>Precision</th>
-                            <th>Recall</th>
-                            <th>F1</th>
-                            <th>Support</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Precision</th>
+                            <th scope="col">Recall</th>
+                            <th scope="col">F1</th>
+                            <th scope="col">Support</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -818,7 +880,7 @@
                             <td>0.578</td>
                             <td>9,878</td>
                         </tr>
-                        <tr style="border-top: 2px solid var(--border-color);">
+                        <tr class="total-row">
                             <td><strong>Macro Average</strong></td>
                             <td>0.457</td>
                             <td>0.437</td>
@@ -828,16 +890,16 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Per-Anatomy Analysis -->
             <h3 class="subsection-title">Per-Anatomy Analysis</h3>
             <div class="table-wrapper">
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th>Anatomy</th>
-                            <th>Accuracy</th>
-                            <th>Support</th>
+                            <th scope="col">Anatomy</th>
+                            <th scope="col">Accuracy</th>
+                            <th scope="col">Support</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -869,95 +931,101 @@
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 12px; color: var(--text-light); font-size: 0.9rem;">
-                Cardiac changes are substantially easier to detect than pulmonary changes, as cardiac changes involve 
+            <p class="table-note">
+                Top 5 regions shown. A further 394 samples from other anatomical regions are omitted for brevity,
+                which is why the support column sums to 22,159 rather than the full 22,553.
+            </p>
+            <p style="margin-bottom: 24px;">
+                Cardiac changes are substantially easier to detect than pulmonary changes, as cardiac changes involve
                 distinct boundary shifts while pulmonary changes are often more diffuse and subtle.
             </p>
-            
+
             <!-- Qualitative Results -->
             <h3 class="subsection-title">Qualitative Results</h3>
             <div class="figure">
-                <img src="figures/qualitative_results.png" alt="Qualitative Results" onclick="openModal(this)">
+                <img src="figures/qualitative_results.png" alt="Three qualitative cases showing prior image, current image, predicted bounding box overlay, and generated text against ground truth" onclick="openModal(this)">
                 <p class="figure-caption">
-                    <strong>Figure:</strong> Qualitative results of TRACE on three representative cases: worsening, stable, and improvement. 
-                    Each row shows the prior image, current image, model prediction with bounding box overlay, and the corresponding 
-                    ground truth and model output text. The model successfully identifies temporal changes and localizes the affected 
+                    <strong>Figure:</strong> Qualitative results of TRACE on three representative cases: worsening, stable, and improvement.
+                    Each row shows the prior image, current image, model prediction with bounding box overlay, and the corresponding
+                    ground truth and model output text. The model successfully identifies temporal changes and localizes the affected
                     anatomical regions with accurate bounding box coordinates.
                 </p>
             </div>
         </section>
-        
+
         <!-- Ablation -->
         <section class="section">
             <h2 class="section-title">Ablation Study</h2>
             <p>We conduct ablation experiments to understand the contribution of temporal input and grounding supervision:</p>
-            
+
             <div class="table-wrapper">
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th>Model</th>
-                            <th>Prior Image</th>
-                            <th>Grounding</th>
-                            <th>BLEU-4</th>
-                            <th>Change Accuracy</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Prior Image</th>
+                            <th scope="col">Grounding</th>
+                            <th scope="col">BLEU-4</th>
+                            <th scope="col">Change Accuracy</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="highlight-row">
                             <td><strong>TRACE (Full)</strong></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
+                            <td><span class="check" aria-label="yes">&#10003;</span></td>
+                            <td><span class="check" aria-label="yes">&#10003;</span></td>
                             <td class="best">0.260</td>
                             <td class="best">48.0%</td>
                         </tr>
                         <tr>
                             <td>Single-Image</td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="check">✓</span></td>
+                            <td><span class="cross" aria-label="no">&#10007;</span></td>
+                            <td><span class="check" aria-label="yes">&#10003;</span></td>
                             <td>0.051</td>
-                            <td>43.8%<sup>†</sup></td>
+                            <td>43.8%<sup>&dagger;</sup></td>
                         </tr>
                         <tr>
                             <td>No-Grounding</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="cross">✗</span></td>
+                            <td><span class="check" aria-label="yes">&#10003;</span></td>
+                            <td><span class="cross" aria-label="no">&#10007;</span></td>
                             <td>0.240</td>
-                            <td>43.8%<sup>†</sup></td>
+                            <td>43.8%<sup>&dagger;</sup></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 12px; color: var(--text-light); font-size: 0.9rem;">
-                <sup>†</sup> Predicts "stable" for all samples (0% recall on worsening/improvement)
+            <p class="table-note">
+                <sup>&dagger;</sup> Predicts "stable" for all samples (0% recall on worsening and improvement). Removing the prior
+                image leaves grounding accuracy relatively intact at 83.7%, so single-image localization is learnable without
+                temporal context. The reverse is not true.
             </p>
-            
+
             <div class="key-finding" style="margin-top: 24px;">
-                <h4><i class="fas fa-exclamation-triangle"></i> Critical Finding</h4>
+                <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Critical Finding</h4>
                 <p>
-                    Despite having access to both prior and current images, the no-grounding variant fails at change detection, 
-                    achieving only 43.8% accuracy by predicting "stable" for all samples. This suggests that <strong>grounding 
-                    supervision provides a critical inductive bias for temporal comparison</strong>. Without explicit spatial 
+                    Despite having access to both prior and current images, the no-grounding variant fails at change detection,
+                    achieving only 43.8% accuracy by predicting "stable" for all samples. This suggests that <strong>grounding
+                    supervision provides a critical inductive bias for temporal comparison</strong>. Without explicit spatial
                     localization, the model cannot effectively compare corresponding anatomical regions across time points.
                 </p>
             </div>
         </section>
-        
+
         <!-- LLM Comparison -->
         <section class="section">
             <h2 class="section-title">Language Model Comparison</h2>
-            <p>Comparison of Vicuna-7B and Mistral-7B backbones reveals distinct clinical behaviors:</p>
-            
+            <p>Comparison of Vicuna-7B and Mistral-7B backbones, with the vision encoder held fixed, reveals distinct clinical behaviors:</p>
+
             <div class="table-wrapper">
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th>LLM Backbone</th>
-                            <th>Accuracy</th>
-                            <th>Worsening Recall</th>
-                            <th>Improvement Recall</th>
-                            <th>Stable Recall</th>
-                            <th>IoU>0.5</th>
+                            <th scope="col">LLM Backbone</th>
+                            <th scope="col">Accuracy</th>
+                            <th scope="col">Worsening Recall</th>
+                            <th scope="col">Improvement Recall</th>
+                            <th scope="col">Stable Recall</th>
+                            <th scope="col">IoU &gt; 0.5</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -981,66 +1049,72 @@
                 </table>
             </div>
             <p style="margin-top: 16px;">
-                <strong>Clinical Implications:</strong> Vicuna-7B achieves higher accuracy through conservative prediction 
-                (high specificity, lower sensitivity), suitable for screening applications where false alarms are costly. 
-                Mistral-7B exhibits aggressive change detection (high sensitivity, lower specificity), better suited for 
+                <strong>Clinical Implications:</strong> Vicuna-7B achieves higher accuracy through conservative prediction
+                (high specificity, lower sensitivity), suitable for screening applications where false alarms are costly.
+                Mistral-7B exhibits aggressive change detection (high sensitivity, lower specificity), better suited for
                 high-risk monitoring where missing actual changes is unacceptable.
             </p>
         </section>
-        
+
         <!-- BibTeX -->
         <section class="section">
             <h2 class="section-title">BibTeX</h2>
             <div class="bibtex-container">
-                <button class="copy-btn" onclick="copyBibtex()">
-                    <i class="fas fa-copy"></i> Copy
+                <button class="copy-btn" type="button" onclick="copyBibtex()">
+                    <i class="fas fa-copy" aria-hidden="true"></i> Copy
                 </button>
-                <pre id="bibtex">@article{aranya2025trace,
-  title={TRACE: Temporal Radiology with Anatomical Change Explanation for Grounded X-ray Report Generation},
-  author={Aranya, OFM Riaz Rahman and Desai, Kevin},
-  journal={arXiv preprint},
-  year={2025}
+                <pre id="bibtex">@InProceedings{aranya2027trace,
+  author    = {Aranya, OFM Riaz Rahman and Desai, Kevin},
+  title     = {TRACE: Temporal Radiology with Anatomical Change Explanation for Grounded X-Ray Report Generation},
+  booktitle = {Pattern Recognition (ICPR)},
+  publisher = {Springer Nature Switzerland},
+  address   = {Cham},
+  pages     = {95--108},
+  year      = {2027},
+  doi       = {10.1007/978-3-032-31933-3_7},
+  isbn      = {978-3-032-31933-3}
 }</pre>
             </div>
         </section>
-        
+
         <!-- Acknowledgments -->
         <section class="section">
             <h2 class="section-title">Acknowledgments</h2>
             <p>
-                This work builds upon <a href="https://github.com/ChantalMP/RaDialog" target="_blank">RaDialog</a>, 
-                <a href="https://github.com/haotian-liu/LLaVA" target="_blank">LLaVA</a>, and 
-                <a href="https://huggingface.co/microsoft/BiomedVLP-BioViL-T" target="_blank">BioViL-T</a>.
-                We use the <a href="https://physionet.org/content/mimic-cxr-jpg/" target="_blank">MIMIC-CXR</a> and 
-                <a href="https://physionet.org/content/chest-imagenome/" target="_blank">Chest ImaGenome</a> datasets.
+                This work builds upon <a href="https://github.com/ChantalMP/RaDialog" target="_blank" rel="noopener">RaDialog</a>,
+                <a href="https://github.com/haotian-liu/LLaVA" target="_blank" rel="noopener">LLaVA</a>, and
+                <a href="https://huggingface.co/microsoft/BiomedVLP-BioViL-T" target="_blank" rel="noopener">BioViL-T</a>.
+                We use the <a href="https://physionet.org/content/mimic-cxr-jpg/" target="_blank" rel="noopener">MIMIC-CXR</a> and
+                <a href="https://physionet.org/content/chest-imagenome/" target="_blank" rel="noopener">Chest ImaGenome</a> datasets.
             </p>
         </section>
     </div>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>
-                <a href="https://utsa-virlab.github.io/">UTSA VIRLab</a> · 
-                <a href="https://utsa.edu/">University of Texas at San Antonio</a>
+                <a href="https://utsa-virlab.github.io/">UTSA VIRLab</a> &middot;
+                <a href="https://utsa.edu/">The University of Texas at San Antonio</a>
             </p>
             <p style="margin-top: 8px;">
-                Template adapted from <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>
+                Template adapted from <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>
             </p>
         </div>
     </footer>
-    
+
     <!-- Image Modal -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="modal-close">&times;</span>
+    <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-label="Enlarged figure" onclick="closeModal()">
+        <button class="modal-close" type="button" aria-label="Close" onclick="closeModal()">&times;</button>
         <img id="modalImage" src="" alt="">
     </div>
-    
+
     <script>
-        // Copy BibTeX
+        // Copy BibTeX. navigator.clipboard is undefined on file:// and plain
+        // http, so fall back to a hidden textarea and report failure.
         function copyBibtex() {
-            const bibtex = document.getElementById('bibtex').textContent;
-            navigator.clipboard.writeText(bibtex).then(() => {
+            const text = document.getElementById('bibtex').textContent;
+            const done = () => {
                 const btn = document.querySelector('.copy-btn');
                 btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
                 btn.classList.add('copied');
@@ -1048,21 +1122,40 @@
                     btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
                     btn.classList.remove('copied');
                 }, 2000);
-            });
+            };
+            const fallback = () => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); done(); }
+                catch (e) { window.prompt('Copy the citation:', text); }
+                document.body.removeChild(ta);
+            };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(done).catch(fallback);
+            } else {
+                fallback();
+            }
         }
-        
-        // Image Modal
+
+        // Image modal
         function openModal(img) {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
-            modal.style.display = 'block';
             modalImg.src = img.src;
+            modalImg.alt = img.alt || '';
+            modal.classList.add('open');
+            document.body.classList.add('modal-open');
         }
-        
+
         function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
+            document.getElementById('imageModal').classList.remove('open');
+            document.body.classList.remove('modal-open');
         }
-        
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
